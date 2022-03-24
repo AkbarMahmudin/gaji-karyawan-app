@@ -1,7 +1,32 @@
-const newKaryawan = new Gaji(gajiKaryawan);
-newKaryawan.addGaji('12345678', 'Mervin', 'Laki-laki', 1, 1000000, 250000);
+document.addEventListener('DOMContentLoaded', () => {
+  const formAddKaryawan = document.getElementById('form-add-karyawan');
 
-const newKaryawan2 = new Gaji(gajiKaryawan);
-newKaryawan.addGaji('12340987', 'Titor', 'Laki-laki', 1, 1000000, 250000);
+  formAddKaryawan.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-console.log(gajiKaryawan);
+    addNewGajiKaryawan();
+    document.getElementById('nik').value = '';
+    document.getElementById('nama').value = '';
+    document.getElementById('L').checked = true;
+    document.getElementById('golongan')[0].selected = true;
+  });
+
+  if (isStorageExist()) loadDataFromStorage();
+});
+
+document.addEventListener('ondatasaved', () => {
+  createToast('Data berhasil disimpan');
+});
+
+document.addEventListener('ondataupdated', () => {
+  createToast('Data berhasil diubah');
+  refreshDataFromGajiKaryawan();
+});
+
+document.addEventListener('ondatadeleted', () => {
+  createToast('Data berhasil dihapus');
+});
+
+document.addEventListener('ondataloaded', () => {
+  refreshDataFromGajiKaryawan();
+});
